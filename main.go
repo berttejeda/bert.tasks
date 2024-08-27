@@ -10,9 +10,6 @@ import (
 
 func main() {
 	// First positional parameter is the path to the playbook
-	if len(os.Args) > 0{
-		fmt.Println("ok")
-	}
 	var playbook string = os.Args[1]
 	if strings.HasSuffix(playbook, ".yaml") || strings.HasSuffix(playbook, ".yml") {
   	// Remove the first positional parameter by re-slicing os.Args
