@@ -2,8 +2,6 @@ module github.com/berttejeda/bert.tasks
 
 go 1.22.6
 
-replace github.com/berttejeda/bert.yamlcli => /Users/etejeda/git/self/bert.yamlcli
-
 require (
 	github.com/berttejeda/bert.yamlcli v0.1.0
 	github.com/sirupsen/logrus v1.9.3
