@@ -4,40 +4,41 @@
   become: true
   ### The vars block  
   vars:
-#    ANSIBLE_STDOUT_CALLBACK: community.general.yaml
-#    var1: "This is value1"
-#    var2: value2
-#    var3: value3
-#    var4: |-
-#      This is a multi-line value
-#      of type string
-#    var5:
-#      - listvalue1
-#      - listvalue2
-#      - listvalue3
-#      - listvalue4
-#    var6:
-#      some_key:
-#        some_child_key: "do it"
-#    var7: $(echo some_value)
-#    var8: 8000
-#    dbhosts:
-#      - dbhost1
-#      - dbhost2
-#      - dbhost3
-#    webhosts:
-#      - webhost1
-#      - webhost2
-#      - webhost3
-#    ### Global Options Block
-#    globals:
-#      options:
-#          my_global_option:
-#            help: "This is my global option"
-#            short: "g"
-#            long: global
-#            var: some_global_variable
-    ### The commands block
+    ANSIBLE_STDOUT_CALLBACK: community.general.yaml
+    var1: "This is value1"
+    var2: value2
+    var3: value3
+    var4: |-
+     This is a multi-line value
+     of type string
+    var5:
+     - listvalue1
+     - listvalue2
+     - listvalue3
+     - listvalue4
+    var6:
+     some_key:
+       some_child_key: "do it"
+    var7: $(echo some_value)
+    var8: 8000
+    dbhosts:
+     - dbhost1
+     - dbhost2
+     - dbhost3
+    webhosts:
+     - webhost1
+     - webhost2
+     - webhost3
+   ### Global Options Block
+    globals:
+      options:
+        my_global_option:
+          help: "This is my global option"
+          short: -g
+          long: --global
+          var: some_global_variable
+          required: True
+          type: string    
     commands:
       run:
         options:
@@ -45,8 +46,8 @@
             help: |-
               This is some foo option, with valid choices being
               foo1,foo2
-            short: "f"
-            long: foo
+            short: -f
+            long: --foo
             type: string
             var: some_foo_variable
             required: True
@@ -57,8 +58,8 @@
               - foo2
           bar:
             help: "This is some bar option"
-            short: "b"
-            long: bar 
+            short: -b
+            long: --bar 
             type: string
             var: some_bar_variable
             required: False
@@ -67,8 +68,8 @@
               - some_baz_variable
           baz:
             help: "This is some baz option"
-            short: "z"
-            long: baz
+            short: -z
+            long: --baz
             type: string
             var: some_baz_variable
             required: False
@@ -77,8 +78,8 @@
               - some_foo_variable
           envvar:
             help: "The value for this argument can be derived from an Environmental Variable"
-            short: "E"
-            long: env-var
+            short: -E
+            long: --env-var
             type: string
             var: env_var
             env_var: SOME_ENVIRONMENT_VARIABLE
@@ -86,23 +87,23 @@
             default: my_env_var
           num:
             help: "This is a numeric argument"
-            short: "n"
-            long: number
+            short: -n
+            long: --number
             var: some_num_variable
             type: int
             required: False
           targets:
             help: "Playbook targets"
-            short: "t"
-            long: targets
+            short: -t
+            long: --targets
             type: string
             var: playbook_targets
             required: False
           multiple:
             help: |-
               This option can be specified multiple times
-            short: "m"
-            long: multiple
+            short: -m
+            long: --multiple
             type: string
             var: multiple_arg
             allow_multiple: True
@@ -111,8 +112,8 @@
               This is some boolean option, behaves like Click's switches,
               holds the value of True if specified
               see: https://github.com/pallets/click
-            short: "s"
-            long: some-switch
+            short: -s
+            long: --some-switch
             type: bool
             var: some_switch
             required: False
