@@ -3,7 +3,7 @@ module github.com/berttejeda/bert.tasks
 go 1.22.6
 
 require (
-	github.com/berttejeda/bert.yamlcli v0.2.0
+	github.com/berttejeda/bert.yamlcli v0.2.1
 	github.com/sirupsen/logrus v1.9.3
 )
 

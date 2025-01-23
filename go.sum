@@ -1,5 +1,5 @@
-github.com/berttejeda/bert.yamlcli v0.2.0 h1:jAKC7PcOFZRnPFua3zJMNXuS+yYiqgXR3mKfYJ9J/Wg=
-github.com/berttejeda/bert.yamlcli v0.2.0/go.mod h1:YRv+BuujUdJM45AtCBB10ftu9SEwfCXZl3PShNJ4mOU=
+github.com/berttejeda/bert.yamlcli v0.2.1 h1:mnQsKlk5neSPh0WbJcbgYaS00AY8RTj9TxARHVE1r2A=
+github.com/berttejeda/bert.yamlcli v0.2.1/go.mod h1:YRv+BuujUdJM45AtCBB10ftu9SEwfCXZl3PShNJ4mOU=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
