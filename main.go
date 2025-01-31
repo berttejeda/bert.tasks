@@ -22,21 +22,28 @@ func main() {
 	// Use a defer function to recover from panics and log the error
 	defer func() {
 		if r := recover(); r != nil {
-			log.Printf("Panic recovered: x has value: '%s', error was %s", x, r)
+			log.Printf("Something went wrong: '%s', error was %s", x, r)
+			os.Exit(1)
 		}
 	}()
 
+	var playbook string
+	var defaultPlaybook string = "Taskfile.yaml"
 	// First positional parameter is the path to the playbook
-	var playbook string = os.Args[1]
-	if strings.HasSuffix(playbook, ".yaml") || strings.HasSuffix(playbook, ".yml") {
-		// Remove the first positional parameter by re-slicing os.Args
-		if strings.HasPrefix(playbook, "~/") {
-			dirname, _ := os.UserHomeDir()
-			playbook = filepath.Join(dirname, playbook[2:])
+	if len(os.Args) > 1 {
+		playbook = os.Args[1]
+		if strings.HasSuffix(playbook, ".yaml") || strings.HasSuffix(playbook, ".yml") {
+			// Remove the first positional parameter by re-slicing os.Args
+			if strings.HasPrefix(playbook, "~/") {
+				dirname, _ := os.UserHomeDir()
+				playbook = filepath.Join(dirname, playbook[2:])
+			}
+			os.Args = append(os.Args[:1], os.Args[2:]...)
+		} else {
+			playbook = defaultPlaybook
 		}
-		os.Args = append(os.Args[:1], os.Args[2:]...)
 	} else {
-		playbook = "Taskfile.yaml"
+		playbook = defaultPlaybook
 	}
 
 	cmd, cmdOptions, ansibleCLI, ansibleCLIOptions, ansibleScriptWrapperFile, echoOn := ansible.MakeCLIFromAnsiblePlaybook(playbook, os.Args)
