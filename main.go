@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"github.com/berttejeda/bert.tasks/lib"
 	"github.com/berttejeda/bert.yamlcli/ansible"
@@ -57,53 +56,19 @@ func main() {
 		if err != nil {
 			logger.Fatal(fmt.Sprintf("error: %w", err))
 		}
+
 		ansibleCLIInstance := exec.Command("bash", ansibleScriptFile)
 
-		// Create pipes for stdout and stderr
-		stdout, err := ansibleCLIInstance.StdoutPipe()
+		// The following ensures we are running the command interactively
+		ansibleCLIInstance.Stdin = os.Stdin
+		ansibleCLIInstance.Stdout = os.Stdout
+		ansibleCLIInstance.Stderr = os.Stderr
+
+		// Run the command
+		err = ansibleCLIInstance.Run()
 		if err != nil {
-			logger.Error(fmt.Sprintf("error creating stdout pipe: %v\n", err))
+			fmt.Println("Error running ansible script:", err)
 		}
-
-		stderr, err := ansibleCLIInstance.StderrPipe()
-		if err != nil {
-			logger.Error(fmt.Sprintf("error creating stderr pipe: %v\n", err))
-		}
-
-		// Start the command
-		if err := ansibleCLIInstance.Start(); err != nil {
-			logger.Fatal(fmt.Sprintf("Error starting command: %v\n", err))
-		}
-
-		// Stream stdout
-		go func() {
-			scanner := bufio.NewScanner(stdout)
-			for scanner.Scan() {
-				fmt.Printf("%s\n", scanner.Text())
-			}
-			if err := scanner.Err(); err != nil {
-				logger.Debug(fmt.Sprintf("Error reading stdout: %v\n", err))
-			}
-		}()
-
-		// Stream stderr
-		go func() {
-			scanner := bufio.NewScanner(stderr)
-			for scanner.Scan() {
-				fmt.Printf("%s\n", scanner.Text())
-			}
-			if err := scanner.Err(); err != nil {
-				logger.Debug(fmt.Sprintf("Error reading stderr: %v\n", err))
-			}
-		}()
-
-		// Wait for the command to complete
-		if err := ansibleCLIInstance.Wait(); err != nil {
-			logger.Warning(fmt.Sprintf("Error waiting for command to finish: %v\n", err))
-		} else {
-			fmt.Println("Command executed successfully.")
-		}
-
 	}
 
 }
