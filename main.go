@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime/debug"
 	"strings"
 )
 
@@ -22,6 +23,7 @@ func main() {
 	defer func() {
 		if r := recover(); r != nil {
 			log.Printf("Something went wrong: '%s', error was %s", x, r)
+			debug.PrintStack()
 			os.Exit(1)
 		}
 	}()
