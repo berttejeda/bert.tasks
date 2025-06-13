@@ -45,9 +45,9 @@ func main() {
 		playbook = defaultPlaybook
 	}
 
-	cmd, cmdOptions, ansibleCLI, ansibleCLIOptions, ansibleScriptWrapperFile, echoOn := ansible.MakeCLIFromAnsiblePlaybook(playbook, os.Args)
+	cmd, cmdOptions, ansibleCLI, ansibleCLIOptions, ansibleScriptWrapperFile := ansible.MakeCLIFromAnsiblePlaybook(playbook, os.Args)
 	logger.Debug(cmd, cmdOptions, ansibleCLI, ansibleCLIOptions)
-
+	var _, echoOn = cmdOptions["--dry-run"]
 	if echoOn {
 		fmt.Printf(ansibleCLI)
 	} else {
